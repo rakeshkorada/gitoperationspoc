@@ -73,7 +73,7 @@
         <sequence name="Sequence1">
           <assign name="Assign1">
             <copy>
-              <from>$addReqVar.payload/client:inputOne + $addReqVar.payload/client:inputTwo</from>
+              <from>$addReqVar.payload/client:inputOne * $addReqVar.payload/client:inputTwo</from>
               <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$addResVar.payload/client:result</to>
             </copy>
           </assign>
