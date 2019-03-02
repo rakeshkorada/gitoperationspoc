@@ -46,6 +46,8 @@
   <variables>
     <variable name="addReqVar" messageType="client:addReqMsg"/>
     <variable name="addResVar" messageType="client:addResMsg"/>
+    <variable name="subReqVar" messageType="client:subReqMsg"/>
+    <variable name="SubResVar" messageType="client:subResMsg"/>
   </variables>
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,6 +79,18 @@
           </assign>
           <reply name="ADDReply" partnerLink="calcSOAP" variable="addResVar" portType="client:CalcBPEL"
                  operation="add"/>
+        </sequence>
+      </onMessage>
+      <onMessage partnerLink="calcSOAP" variable="subReqVar" portType="client:CalcBPEL" operation="sub">
+        <sequence name="Sequence2">
+          <assign name="Assign2">
+            <copy>
+              <from>$subReqVar.payload/client:inputOne - $subReqVar.payload/client:inputTwo</from>
+              <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$SubResVar.payload/client:result</to>
+            </copy>
+          </assign>
+          <reply name="SUBReply" partnerLink="calcSOAP" variable="SubResVar" portType="client:CalcBPEL"
+                 operation="sub"/>
         </sequence>
       </onMessage>
     </pick>
